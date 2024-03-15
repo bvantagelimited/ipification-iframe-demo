@@ -1,10 +1,15 @@
 extends layout
 
 block content
-  p IP demo use iframe 
+  h2 IP demo use iframe
 
   div
-    button.btn-login Login
+    div
+      label(for="username") Enter phone number
+    div(style="margin-top: 20px")
+      input(id="phone-number" value="381123456789")
+    div(style="margin-top: 20px")
+      button.btn-login Login
 
 block scripts
   script(src="/javascripts/login.js")

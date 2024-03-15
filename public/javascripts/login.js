@@ -18,9 +18,16 @@ $(() => {
     const auth_url = 'https://stage.ipification.com/auth/realms/ipification/protocol/openid-connect/auth';
     const redirect_uri = 'http://localhost:3000/callback';
     const client_id = 'xxx'; // change to your client_id
-    const state = 'wJXq12L5GJSAZuOrk2SNl1U9409iK4KqW8eXBKR';
-    const scope = 'openid%20ip%3Aphone';
-    const url = `${auth_url}?response_type=code&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&state=${state}&ui_locales=en`;
+    const state = btoa(Math.random()).slice(0, 10); // random string
+    const scope = encodeURIComponent('openid ip:phone_verify');
+    const phone_number = $("#phone-number").val();
+
+    if(!phone_number || phone_number === '') {
+      alert('Please input phone number');
+      return;
+    }
+
+    const url = `${auth_url}?response_type=code&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&state=${state}&ui_locales=en&login_hint=${phone_number}`;
     $('<iframe>', {src: url, class: 'ip-iframe', style: 'display: none'}).appendTo('body');
   })
 })
